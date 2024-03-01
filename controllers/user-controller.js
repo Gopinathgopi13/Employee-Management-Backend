@@ -11,23 +11,24 @@ class UserController {
 
     createUser = async (req,res,next) =>
     {
-        const file = req.file;
+        // const file = req.file;
         let {name,email,password,type, address, mobile} = req.body;
         const username = 'user'+crypto.randomInt(11111111,999999999);
-        if(!name || !email || !username || !password || !type || !address || !file || !mobile) return next(ErrorHandler.badRequest('All Fields Required'));
+        if(!name || !email || !username || !password || !type || !address || !mobile) return next(ErrorHandler.badRequest('All Fields Required'));
         type = type.toLowerCase();
-        if(type==='admin')
-        {
-            const adminPassword = req.body.adminPassword;
-            if(!adminPassword)
-                return next(ErrorHandler.badRequest(`Please Enter Your Password to Add ${name} as an Admin`));
-            const {_id} = req.user;
-            const {password:hashPassword} = await userService.findUser({_id});
-            const isPasswordValid = await userService.verifyPassword(adminPassword,hashPassword);
-            if(!isPasswordValid) return next(ErrorHandler.unAuthorized('You have entered a wrong password'));
-        }
+        // if(type==='admin')
+        // {
+        //     const adminPassword = req.body.adminPassword;
+        //     if(!adminPassword)
+        //         return next(ErrorHandler.badRequest(`Please Enter Your Password to Add ${name} as an Admin`));
+        //     const {_id} = req.user;
+        //     const {password:hashPassword} = await userService.findUser({_id});
+        //     const isPasswordValid = await userService.verifyPassword(adminPassword,hashPassword);
+        //     if(!isPasswordValid) return next(ErrorHandler.unAuthorized('You have entered a wrong password'));
+        // }
         const user = {
-            name,email,username,mobile,password,type,address,image:file.filename
+            name,email,username,mobile,password,type,address
+            // ,image:file.filename
         }
 
         

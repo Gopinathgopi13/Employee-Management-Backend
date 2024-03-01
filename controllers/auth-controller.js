@@ -46,13 +46,13 @@ class AuthController {
             httpOnly:true
         })
 
-        console.log(res);
+        console.log("res", res);
         res.json({success:true,message:'Login Successfull',user:new UserDto(user)})
     }
 
     forgot = async (req,res,next) =>
     {
-        // console.log("Called")
+        console.log("Forgot method Called")
         const {email:requestEmail} = req.body;
         if(!requestEmail) return next(ErrorHandler.badRequest());
         if(!validator.isEmail(requestEmail)) return next(ErrorHandler.badRequest('Inavlid Email Address'));
